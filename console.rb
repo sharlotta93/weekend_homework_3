@@ -64,10 +64,23 @@ ticket_1.save()
 ticket_2.save()
 ticket_3.save()
 
-#all three functions work 
+customer_1.name = "Barbara"
+customer_1.update()
+
+film_2.price = 11
+film_2.update()
+
+ticket_1.film_id = film_1.id
+ticket_1.update
+
+#all three functions work
 # customer_2.delete()
 # film_3.delete()
 # ticket_2.delete()
+
+customers = Customer.all()
+movies = Film.all()
+tickets = Ticket.all()
 
 binding.pry
 nil
