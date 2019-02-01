@@ -6,6 +6,9 @@ require_relative('../db/sqlrunner')
 
 class Film
 
+  attr_reader :id
+  attr_accessor :title, :price
+
   def initialize(movie)
     @id = movie['id'].to_i if movie['id']
     @title = movie['title']
@@ -13,9 +16,9 @@ class Film
   end
 
   def save()
-    sql = "INSERT INTO films(title, price) VALUES($1, $2) RETURNING id"
+    sql = "INSERT INTO films (title, price) VALUES ($1, $2) RETURNING id"
     values = [@title, @price]
-    result = Sqlrunner.run(sql, values).first
+    result = Sqlrunner.run(sql, values)
     @id = result[0]['id'].to_i
   end
 

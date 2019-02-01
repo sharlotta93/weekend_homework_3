@@ -6,6 +6,9 @@ require_relative('../db/sqlrunner')
 
 class Customer
 
+  attr_reader :id
+  attr_accessor :name, :funds
+
   def initialize(person)
     @id = person['id'].to_i if person['id']
     @name = person['name']
@@ -13,10 +16,10 @@ class Customer
   end
 
   def save()
-    sql = "INSERT INTO customers(name, funds) VALUES($1, $2) RETURNING id"
+    sql = "INSERT INTO customers (name, funds) VALUES ($1, $2) RETURNING id"
     values = [@name, @funds]
     result = Sqlrunner.run(sql, values).first
-    @id = result[0]['id'].to_i
+    @id = result['id'].to_i
   end
 
 

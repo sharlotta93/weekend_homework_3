@@ -1,7 +1,7 @@
 require('pry')
-require_relative('ticket')
-require_relative('customer')
-require_relative('film')
+require_relative('models/ticket')
+require_relative('models/customer')
+require_relative('models/film')
 
 
 
@@ -45,17 +45,17 @@ film_3.save()
 
 ticket_1 = Ticket.new({
   'customer_id' => customer_3.id,
-  'movie_id' => film_2.id
+  'film_id' => film_2.id
 })
 
 ticket_2 = Ticket.new({
   'customer_id' => customer_3.id,
-  'movie_id' => film_3.id
+  'film_id' => film_3.id
 })
 
 ticket_3 = Ticket.new({
   'customer_id' => customer_1.id,
-  'movie_id' => film_3.id
+  'film_id' => film_3.id
 })
 
 ticket_1.save()
