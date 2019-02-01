@@ -3,7 +3,9 @@ require_relative('models/ticket')
 require_relative('models/customer')
 require_relative('models/film')
 
-
+Ticket.delete_all()
+Film.delete_all()
+Customer.delete_all()
 
 customer_1 = Customer.new({
   'name' => 'Fred',
@@ -61,6 +63,11 @@ ticket_3 = Ticket.new({
 ticket_1.save()
 ticket_2.save()
 ticket_3.save()
+
+#all three functions work 
+# customer_2.delete()
+# film_3.delete()
+# ticket_2.delete()
 
 binding.pry
 nil
