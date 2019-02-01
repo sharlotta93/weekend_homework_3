@@ -15,6 +15,17 @@ class Customer
     @funds = person['funds'].to_i
   end
 
+  def films()
+    sql = "SELECT films.*
+           FROM films
+           INNER JOIN tickets
+           ON tickets.film_id = films.id
+           WHERE tickets.customer_id = $1"
+    values = [@id]
+    result = Sqlrunner.run(sql, values)
+    return result.map{ |movie| Film.new(movie)}
+  end
+
   def save()
     sql = "INSERT INTO customers (name, funds) VALUES ($1, $2) RETURNING id"
     values = [@name, @funds]

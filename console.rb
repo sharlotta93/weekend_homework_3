@@ -82,5 +82,8 @@ customers = Customer.all()
 movies = Film.all()
 tickets = Ticket.all()
 
+films = customer_3.films()
+people = film_3.viewers()
+
 binding.pry
 nil
