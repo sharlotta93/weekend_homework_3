@@ -46,7 +46,7 @@ film_2.save()
 film_3.save()
 
 ticket_1 = Ticket.new({
-  'customer_id' => customer_3.id,
+  'customer_id' => customer_1.id,
   'film_id' => film_2.id
 })
 
@@ -59,6 +59,7 @@ ticket_3 = Ticket.new({
   'customer_id' => customer_1.id,
   'film_id' => film_3.id
 })
+
 
 ticket_1.save()
 ticket_2.save()
@@ -73,6 +74,8 @@ film_2.update()
 ticket_1.film_id = film_1.id
 ticket_1.update
 
+
+
 #all three functions work
 # customer_2.delete()
 # film_3.delete()
@@ -84,6 +87,10 @@ tickets = Ticket.all()
 
 films = customer_3.films()
 people = film_3.viewers()
+
+customer_1.pay_for_ticket(ticket_3).update()
+
+m = Film.find_movie_by_id(19)
 
 binding.pry
 nil

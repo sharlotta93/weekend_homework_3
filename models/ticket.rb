@@ -15,6 +15,16 @@ class Ticket
     @film_id = ticket['film_id'].to_i
   end
 
+  def get_price()
+    sql = "SELECT films.price
+           FROM films
+           INNER JOIN tickets
+           ON tickets.film_id = films.id
+           WHERE film_id = $1"
+    values = [@film_id]
+    return Sqlrunner.run(sql, values)[0]['price'].to_i
+  end
+
   def save()
     sql = "INSERT INTO tickets (customer_id, film_id) VALUES ($1, $2) RETURNING id"
     values = [@customer_id, @film_id]

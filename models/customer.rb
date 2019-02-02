@@ -15,6 +15,28 @@ class Customer
     @funds = person['funds'].to_i
   end
 
+  def pay_for_ticket(ticket)
+    if @funds > ticket.get_price
+       @funds -= ticket.get_price
+       return self #if I want to be able to update it staright away I have to make sure an object is returned and not an integer (method chaining)
+    else
+      nil
+    end
+  end
+
+  def get_all_tickets()
+    sql = "SELECT customers.name, films.title, tickets.id
+           FROM tickets
+           INNER JOIN customers
+           ON tickets.customer_id = customers.id
+           INNER JOIN films
+           ON tickets.film_id = films.id
+           WHERE customers.id = $1"
+    values = [@id]
+    result = Sqlrunner.run(sql, values)
+    return result.each {|info| p info}
+  end
+
   def films()
     sql = "SELECT films.*
            FROM films
