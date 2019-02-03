@@ -15,21 +15,6 @@ class Film
     @price = movie['price'].to_i
   end
 
-  def number_of_viewers()
-    return viewers.count()
-  end
-
-  def viewers()
-    sql = "SELECT customers.*
-           FROM customers
-           INNER JOIN tickets
-           ON tickets.customer_id = customers.id
-           WHERE tickets.film_id = $1"
-    values = [@id]
-    result = Sqlrunner.run(sql, values)
-    return result.map{ |person| Customer.new(person)}
-  end
-
   def save()
     sql = "INSERT INTO films (title, price) VALUES ($1, $2) RETURNING id"
     values = [@title, @price]
@@ -66,8 +51,5 @@ class Film
     result = Sqlrunner.run(sql)
     return result.map { |movie| Film.new(movie)}
   end
-
-
-
 
 end

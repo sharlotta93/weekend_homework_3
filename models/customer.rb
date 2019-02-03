@@ -38,14 +38,14 @@ class Customer
   end
 
   def films()
-    sql = "SELECT films.*
-           FROM films
+    sql = "SELECT screenings.*
+           FROM screenings
            INNER JOIN tickets
-           ON tickets.film_id = films.id
+           ON tickets.screening_id = screenings.id
            WHERE tickets.customer_id = $1"
     values = [@id]
     result = Sqlrunner.run(sql, values)
-    return result.map{ |movie| Film.new(movie)}
+    return result.map{ |movie| Screening.new(movie)}
   end
 
   def save()

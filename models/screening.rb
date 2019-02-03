@@ -22,10 +22,25 @@ class Screening
              INNER JOIN films
              ON screenings.film_id = films.id
              INNER JOIN tickets
-             ON tickets.film_id = films.id
+             ON tickets.screening_id = screenings.id
              WHERE screenings.id = $1"
       values = [@id]
       return Sqlrunner.run(sql, values).count
+  end
+
+  def number_of_viewers()
+    return viewers.count()
+  end
+
+  def viewers()
+    sql = "SELECT customers.*
+           FROM customers
+           INNER JOIN tickets
+           ON tickets.screening_id = customers.id
+           WHERE tickets.screening_id = $1"
+    values = [@id]
+    result = Sqlrunner.run(sql, values)
+    return result.map{ |person| Customer.new(person)}
   end
 
   def save()
