@@ -2,6 +2,7 @@ require('pg')
 require_relative('ticket')
 require_relative('film')
 require_relative('../db/sqlrunner')
+require('pry')
 
 
 class Customer
@@ -16,21 +17,28 @@ class Customer
   end
 
   def pay_for_ticket(ticket)
-    if @funds > ticket.get_price
+    if @funds >= ticket.get_price
        @funds -= ticket.get_price
-       return self #if I want to be able to update it staright away I have to make sure an object is returned and not an integer (method chaining)
+       return self #if I want to be able to update it straight away I have to make sure an object is returned and not an integer (method chaining)
     else
       nil
     end
   end
 
-  def get_all_tickets()
+  def buy_ticket(ticket, screening)
+    self.pay_for_ticket(ticket) if screening.tickets_sold < screening.capacity
+  end
+
+#in all tickets I have to combine customer with ticket and with screening and with id to be able to access the title of the movie and not just id
+  def all_tickets()
     sql = "SELECT customers.name, films.title, tickets.id
            FROM tickets
            INNER JOIN customers
            ON tickets.customer_id = customers.id
+           INNER JOIN screenings
+           ON tickets.screening_id = screenings.id
            INNER JOIN films
-           ON tickets.film_id = films.id
+           ON screenings.film_id = films.id
            WHERE customers.id = $1"
     values = [@id]
     result = Sqlrunner.run(sql, values)

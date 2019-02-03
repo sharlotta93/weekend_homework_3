@@ -16,19 +16,14 @@ class Screening
     @capacity = object['capacity'].to_i
   end
 
-  def tickets_sold()
-      sql = "SELECT screenings.*
-             FROM screenings
-             INNER JOIN films
-             ON screenings.film_id = films.id
-             INNER JOIN tickets
-             ON tickets.screening_id = screenings.id
-             WHERE screenings.id = $1"
-      values = [@id]
-      return Sqlrunner.run(sql, values).count
+#I can't get the function to return more than one screening if two are equally popular
+  def self.most_popular()
+    all_movies = self.all()
+    all_movies.reduce(all_movies[0]) { |most_popular, movie|
+      most_popular.tickets_sold > movie.tickets_sold ? most_popular : movie }
   end
 
-  def number_of_viewers()
+  def tickets_sold()
     return viewers.count()
   end
 

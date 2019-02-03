@@ -58,12 +58,19 @@ screening2 = Screening.new({
   'capacity' => 30
 })
 
+screening3 = Screening.new({
+  'show_time' => '15:55',
+  'film_id' => film_1.id,
+  'capacity' => 40
+})
+
 screening1.save()
 screening2.save()
+screening3.save()
 
 ticket_1 = Ticket.new({
   'customer_id' => customer_1.id,
-  'screening_id' => screening2.id
+  'screening_id' => screening3.id
 })
 
 ticket_2 = Ticket.new({
@@ -73,13 +80,26 @@ ticket_2 = Ticket.new({
 
 ticket_3 = Ticket.new({
   'customer_id' => customer_1.id,
-  'screening_id' => screening1.id
+  'screening_id' => screening2.id
 })
+
+ticket_4 = Ticket.new({
+  'customer_id' => customer_2.id,
+  'screening_id' => screening3.id
+})
+
+ticket_5 = Ticket.new({
+  'customer_id' => customer_3.id,
+  'screening_id' => screening2.id
+})
+
 
 
 ticket_1.save()
 ticket_2.save()
 ticket_3.save()
+ticket_4.save()
+ticket_5.save()
 
 customer_1.name = "Barbara"
 customer_1.update()
@@ -98,6 +118,7 @@ film_2.update()
 customers = Customer.all()
 movies = Film.all()
 tickets = Ticket.all()
+screenings = Screening.all()
 
 # films = customer_3.films()
 # people = film_3.viewers()
