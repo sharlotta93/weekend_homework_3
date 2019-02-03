@@ -15,6 +15,12 @@ class Film
     @price = movie['price'].to_i
   end
 
+  def self.sort()
+    sql = "SELECT * FROM films ORDER BY title ASC"
+    result = Sqlrunner.run(sql)
+    return result.map { |movie| Film.new(movie)}
+  end
+
   def save()
     sql = "INSERT INTO films (title, price) VALUES ($1, $2) RETURNING id"
     values = [@title, @price]

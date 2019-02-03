@@ -16,7 +16,6 @@ class Screening
     @capacity = object['capacity'].to_i
   end
 
-#I can't get the function to return more than one screening if two are equally popular
   def self.most_popular()
     all_movies = self.all()
     all_movies.reduce(all_movies[0]) { |most_popular, movie|
