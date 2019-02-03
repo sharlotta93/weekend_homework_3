@@ -15,6 +15,10 @@ class Film
     @price = movie['price'].to_i
   end
 
+  def number_of_viewers()
+    return viewers.count()
+  end
+
   def viewers()
     sql = "SELECT customers.*
            FROM customers

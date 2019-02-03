@@ -2,6 +2,7 @@ require('pry')
 require_relative('models/ticket')
 require_relative('models/customer')
 require_relative('models/film')
+require_relative('models/screening')
 
 Ticket.delete_all()
 Film.delete_all()
@@ -74,7 +75,20 @@ film_2.update()
 ticket_1.film_id = film_1.id
 ticket_1.update
 
+screening1 = Screening.new({
+  'show_time' => '14:55',
+  'film_id' => film_3.id,
+  'capacity' => 50
+  })
 
+screening2 = Screening.new({
+  'show_time' => '16:55',
+  'film_id' => film_3.id,
+  'capacity' => 50
+})
+
+screening1.save()
+screening2.save()
 
 #all three functions work
 # customer_2.delete()
